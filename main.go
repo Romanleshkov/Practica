@@ -1,17 +1,17 @@
 package main
 
 import (
-	"Pracric/Web"
-	"Pracric/api"
+	"Practica/Web"
+	"Practica/api"
 	"github.com/sirupsen/logrus"
 	"log"
 	"net/http"
 	"os"
 )
 
-func main(){
+func main() {
 	port := os.Getenv("PORT")
-	if port == ""{
+	if port == "" {
 		port = "8000"
 	}
 
@@ -32,15 +32,11 @@ func main(){
 		}
 	}()
 
-
 	err := http.ListenAndServe(":"+port, mux) // задаем слушать порт
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
 }
-
-
-
 
 /*
 func HomeHandler(w http.ResponseWriter, r *http.Request){

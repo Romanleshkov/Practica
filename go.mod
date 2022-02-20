@@ -1,4 +1,4 @@
-module Pracric
+module Practica
 
 go 1.17
 

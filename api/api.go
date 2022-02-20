@@ -1,7 +1,7 @@
 package api
 
 import (
-	"Pracric/AnsibleVault"
+	"Practica/AnsibleVault"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"net/http"
@@ -9,10 +9,10 @@ import (
 
 type Handler struct{}
 
-func (h* Handler) InitRoutes() *gin.Engine{
-	router:=gin.New()
+func (h *Handler) InitRoutes() *gin.Engine {
+	router := gin.New()
 
-	api:=router.Group("/api")
+	api := router.Group("/api")
 	{
 		api.POST("/encrypt", h.encrypt)
 		api.POST("/decrypt", h.decrypt)
@@ -21,43 +21,43 @@ func (h* Handler) InitRoutes() *gin.Engine{
 	return router
 }
 
-func (h *Handler) encrypt(c *gin.Context)  {
+func (h *Handler) encrypt(c *gin.Context) {
 	var input Request
 
-	if err:= c.BindJSON(&input); err!=nil{
-		newErrorResponse(c,http.StatusBadRequest,err.Error())
+	if err := c.BindJSON(&input); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	status:="OK"
+	status := "OK"
 
-	content,err:=AnsibleVault.Encrypt(input.Content,input.Password)
-	if err!=nil{
-		status="Error of encryption"
+	content, err := AnsibleVault.Encrypt(input.Content, input.Password)
+	if err != nil {
+		status = "Error of encryption"
 	}
-	c.JSONP(http.StatusOK,map[string]interface{}{
+	c.JSONP(http.StatusOK, map[string]interface{}{
 		"content": content,
-		"status": status,
+		"status":  status,
 	})
 }
 
-func (h *Handler) decrypt(c *gin.Context)  {
+func (h *Handler) decrypt(c *gin.Context) {
 	var input Request
 
-	if err:= c.BindJSON(&input); err!=nil{
-		newErrorResponse(c,http.StatusBadRequest,err.Error())
+	if err := c.BindJSON(&input); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	status:="OK"
+	status := "OK"
 
-	content,err:=AnsibleVault.Decrypt(input.Content,input.Password)
-	if err!=nil{
-		status="Error of decryption"
+	content, err := AnsibleVault.Decrypt(input.Content, input.Password)
+	if err != nil {
+		status = "Error of decryption"
 	}
-	c.JSONP(http.StatusOK,map[string]interface{}{
+	c.JSONP(http.StatusOK, map[string]interface{}{
 		"content": content,
-		"status": status,
+		"status":  status,
 	})
 }
 
@@ -65,7 +65,7 @@ type errore struct {
 	Message string `json:"message"`
 }
 
-func newErrorResponse(c *gin.Context, statusCode int, message string)  {
+func newErrorResponse(c *gin.Context, statusCode int, message string) {
 	logrus.Error(message)
-	c.AbortWithStatusJSON(statusCode,errore{message})
+	c.AbortWithStatusJSON(statusCode, errore{message})
 }
