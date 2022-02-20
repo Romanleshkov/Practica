@@ -37,21 +37,40 @@
     td {
         background-color: #515960;
     }
+
+    tr.api td {
+        vertical-align: top;
+        text-align: center;
+    }
+
+    tr.api textarea {
+        width: 90%;
+        font-size: 14pt;
+        background-color: rgba(0, 0, 0, 0);
+        color: bisque;
+        outline: none;
+        border: rgba(0, 0, 0, 0);
+    }
+
+    tr.api a {
+        color: white;
+        font-size: 14pt;
+    }
 </style>
 <body bgcolor="#272B30">
 <table align="center" width="60%" bgcolor="#3A3F44">
     <tr>
-        <td align="center">
+        <td align="center" colspan="2">
             <a class="home" href="/">Reset</a>
         </td>
     </tr>
     <tr>
-        <td align="center">
+        <td align="center" colspan="2">
             <form>
                 <input class="form" required="" size="80" value="{{ .Password }}" autofocus
                        placeholder="Enter your password" type="password" name="Password">
                 <br>
-                <textarea class="form" rows="15" cols="80" required="" name="Text" rows="7"
+                <textarea class="form" rows="15" cols="80" required="" name="Text"
                           placeholder="Enter your text for encryption or decryption...">{{ .Text }}</textarea>
                 <br>
                 <input class="button" formaction="/" formmethod="post" type="submit" value="Encrypt" name="Button"/>
@@ -61,7 +80,7 @@
     </tr>
     {{ if .Answer }}
     <tr>
-        <td>
+        <td colspan="2">
             <div align="center">
                 <a class="home">Answer</a>
             </div>
@@ -71,6 +90,52 @@
         </td>
     </tr>
     {{ end }}
+    <tr class="api">
+        <td>
+            <div align="center">
+                <a class="home">API Request Example (Encrypt)</a>
+            </div>
+            <div>
+                <p><a>/api/encrypt</a></p>
+                <p><a>POST Data:</a></p>
+                <p><textarea readonly cols="35" rows="6">
+{
+    "content":  "secret",
+    "password": "pass"
+}
+                </textarea></p>
+                <p><a>Response Data:</a></p>
+                <p><textarea readonly cols="35" rows="15">
+{
+    "content": "$ANSIBLE_VAULT;1.1;AES256\n39316138653764333966396636366132333330363639613866383332623262366264353565333835\n6133373232303362323164396431623165363961356361610a366261653864633966383137396233\n39376664316530326131313733316166303030646262643363626432396535326335383066336639\n6362643962393963310a373561646136363737316261613732623662343963386631633462643065\n6235\n",
+    "status":  "OK"
+}
+                </textarea></p>
+            </div>
+        </td>
+        <td>
+            <div align="center">
+                <a class="home">API Request Example (Decrypt)</a>
+            </div>
+            <div>
+                <p><a>/api/decrypt</a></p>
+                <p><a>POST Data:</a></p>
+                <p><textarea readonly cols="35" rows="15">
+{
+    "content":  "$ANSIBLE_VAULT;1.1;AES256\n39316138653764333966396636366132333330363639613866383332623262366264353565333835\n6133373232303362323164396431623165363961356361610a366261653864633966383137396233\n39376664316530326131313733316166303030646262643363626432396535326335383066336639\n6362643962393963310a373561646136363737316261613732623662343963386631633462643065\n6235\n",
+    "password": "pass"
+}
+                </textarea></p>
+                <a>Response Data:</a>
+                <br><textarea readonly cols="35" rows="6">
+{
+    "content": "secret"
+    "status":  "OK"
+}
+                </textarea>
+            </div>
+        </td>
+    </tr>
 </table>
 
 
