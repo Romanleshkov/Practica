@@ -6,16 +6,21 @@
 
 </head>
 <style>
-    textarea {resize: none;}
-    *.form{
-        width: 90% ;
+    textarea {
+        resize: none;
+    }
+
+    *.form {
+        width: 90%;
         font-size: 18pt;
     }
-    *.button{
+
+    *.button {
         width: 80%;
         font-size: 18pt;
         background-color: dimgray;
     }
+
     a.home {
         font-size: 18pt;
         color: #fff;
@@ -23,27 +28,31 @@
         background-color: transparent;
 
     }
-    table{
-        border: 1px solid rgba(0,0,0,0.6);
+
+    table {
+        border: 1px solid rgba(0, 0, 0, 0.6);
         border-radius: 0.25rem;
     }
-    td{
+
+    td {
         background-color: #515960;
     }
 </style>
 <body bgcolor="#272B30">
 <table align="center" width="60%" bgcolor="#3A3F44">
     <tr>
-        <td align="center" >
+        <td align="center">
             <a class="home" href="/">Reset</a>
         </td>
     </tr>
     <tr>
         <td align="center">
             <form>
-                <input class="form" required="" size="80" value="{{ .Password }}" autofocus placeholder="Enter your password" type="password" name="Password">
+                <input class="form" required="" size="80" value="{{ .Password }}" autofocus
+                       placeholder="Enter your password" type="password" name="Password">
                 <br>
-                <textarea class="form" rows="15" cols="80" required="" name="Text" rows="7" placeholder="Enter your text for encryption or decryption...">{{ .Text }}</textarea>
+                <textarea class="form" rows="15" cols="80" required="" name="Text" rows="7"
+                          placeholder="Enter your text for encryption or decryption...">{{ .Text }}</textarea>
                 <br>
                 <input class="button" formaction="/" formmethod="post" type="submit" value="Encrypt" name="Button"/>
                 <input class="button" formaction="/" formmethod="post" type="submit" value="Decrypt" name="Button"/>
@@ -63,9 +72,6 @@
     </tr>
     {{ end }}
 </table>
-
-
-
 
 
 </body>
